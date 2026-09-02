@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ru.elkabelaya.ecotracker.domain.Habit
+import ru.elkabelaya.ecotracker.ui.screens.HabitScreen
 import ru.elkabelaya.ecotracker.ui.screens.HomeScreen
 
 @Composable
@@ -25,8 +26,15 @@ fun AppNavHost(
         }
 
         composable<Screen.AddHabit> {
-            // Экран добавления (реализуем в задании)
-            Text("Экран добавления")
+            HabitScreen(
+                habit = null,
+                onAddClick = {
+                    //
+                },
+                onBack = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }

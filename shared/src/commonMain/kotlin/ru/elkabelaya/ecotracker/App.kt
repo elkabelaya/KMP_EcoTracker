@@ -22,12 +22,13 @@ import org.jetbrains.compose.resources.painterResource
 import ecotracker.shared.generated.resources.Res
 import ecotracker.shared.generated.resources.compose_multiplatform
 import ru.elkabelaya.ecotracker.ui.navigation.AppNavHost
+import ru.elkabelaya.ecotracker.ui.theme.Theme
 
 @Composable
 @Preview
 fun App() {
     val navController = rememberNavController()
-    MaterialTheme {
+    Theme {
         AppNavHost(navController = navController)
     }
 }

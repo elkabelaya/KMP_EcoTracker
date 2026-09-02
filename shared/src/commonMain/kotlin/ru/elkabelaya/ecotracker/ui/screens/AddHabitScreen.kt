@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,11 +22,14 @@ import androidx.compose.ui.Modifier
 import ru.elkabelaya.ecotracker.domain.Habit
 import ru.elkabelaya.ecotracker.domain.Habits
 import ru.elkabelaya.ecotracker.ui.components.HabitCard
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 
 @Composable
 fun HabitScreen(
     habit: Habit?,
     onAddClick: (Habit) -> Unit,
+    onBack: () -> Unit
 ) {
     var state = rememberTextFieldState("")
     Scaffold(
@@ -35,7 +40,17 @@ fun HabitScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                ),
+                navigationIcon = {
+
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Назад"
+                        )
+                    }
+
+                }
             )
         },
 
