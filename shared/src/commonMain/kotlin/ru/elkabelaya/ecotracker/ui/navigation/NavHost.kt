@@ -1,11 +1,11 @@
 package ru.elkabelaya.ecotracker.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ru.elkabelaya.ecotracker.domain.Habit
+import org.koin.compose.viewmodel.koinViewModel
+import ru.elkabelaya.ecotracker.domain.model.Habit
 import ru.elkabelaya.ecotracker.ui.screens.HabitScreen
 import ru.elkabelaya.ecotracker.ui.screens.HomeScreen
 
@@ -19,7 +19,8 @@ fun AppNavHost(
         startDestination = startDestination
     ) {
         composable<Screen.Home> {
-            HomeScreen(listOf(Habit("1", "", "", false, "")),{
+            HomeScreen(koinViewModel(),
+                {
                 navController.navigate(Screen.AddHabit)
             }, {})
 

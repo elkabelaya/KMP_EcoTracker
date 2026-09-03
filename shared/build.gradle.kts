@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
+    //alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -56,6 +57,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
+
+            //implementation(libs.sqldelight.android.driver)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -69,12 +72,32 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.serialization.json)
             implementation(libs.compose.material.icons.extended)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            //implementation(libs.sqldelight.runtime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         jsMain.dependencies {
             implementation(libs.wrappers.browser)
+            //implementation(libs.sqldelight.driver.webworker)
+
+            //val sqlDelightVersion = libs.versions.sqlDelight.get()
+            //val sqlJsVersion = libs.versions.sqljs.get()
+
+            //implementation(npm("@cashapp/sqldelight-sqljs-worker", sqlDelightVersion))
+            //implementation(npm("sql.js", sqlJsVersion))
+
+        }
+        iosMain.dependencies {
+
+           // implementation(libs.sqldelight.native.driver)
+        }
+        jvmMain.dependencies {
+           // implementation(libs.sqldelight.driver.desktop)
+
         }
     }
 }

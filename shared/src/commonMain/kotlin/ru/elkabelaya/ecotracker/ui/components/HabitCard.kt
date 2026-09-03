@@ -1,6 +1,6 @@
 package ru.elkabelaya.ecotracker.ui.components
 
-import ru.elkabelaya.ecotracker.domain.Habit
+import ru.elkabelaya.ecotracker.domain.model.Habit
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
@@ -47,7 +47,7 @@ fun HabitCard(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = habit.category,
+                    text = habit.category.toString(),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -56,7 +56,7 @@ fun HabitCard(
             Spacer(modifier = Modifier.weight(1f)) // Толкает дату вправо
 
             Text(
-                text = habit.date,
+                text = habit.date.toString(),
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray
             )
