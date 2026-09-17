@@ -21,6 +21,8 @@ material-icons = "1.7.3"
 koin = "4.2.2"
 sqlDelight = "2.3.2"
 sqljs = "1.6.2"
+copy-webpack-plugin="9.1.0"
+coroutinesCore="1.8.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -48,12 +50,15 @@ compose-material-icons-extended = { group = "org.jetbrains.compose.material", na
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
+koin-android = { group =  "io.insert-koin", name = "koin-android", version.ref = "koin" }
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 sqldelight-driver-webworker = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
 sqldelight-driver-desktop = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
-
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqldelight-async = { module = "app.cash.sqldelight:async-extensions", version.ref = "sqlDelight" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesCore" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }

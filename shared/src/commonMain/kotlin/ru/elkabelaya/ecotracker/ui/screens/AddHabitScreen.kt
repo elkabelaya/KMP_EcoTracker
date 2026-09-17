@@ -22,7 +22,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 @Composable
 fun HabitScreen(
     habit: Habit?,
-    onAddClick: (Habit) -> Unit,
+    onAddClick: (Habit?) -> Unit,
     onBack: () -> Unit
 ) {
     var state = rememberTextFieldState("")
@@ -56,7 +56,7 @@ fun HabitScreen(
                     .padding(paddingValues)
             ) {
                 TextField(state)
-                Button({}, content = { Text("Сохранить") })
+                Button({onAddClick(null)}, content = { Text("Сохранить") })
             }
         }
     )

@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -7,7 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
-    //alias(libs.plugins.sqldelight)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -18,6 +19,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            linkerOpts("-lsqlite3")
         }
     }
     
@@ -57,8 +59,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
-
-            //implementation(libs.sqldelight.android.driver)
+            implementation(libs.sqldelight.android.driver)
+            implementation(libs.sqldelight.async)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -75,28 +77,30 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
-            //implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        jsMain.dependencies {
+        webMain.dependencies {
             implementation(libs.wrappers.browser)
-            //implementation(libs.sqldelight.driver.webworker)
+            implementation(libs.sqldelight.driver.webworker)
+            implementation(npm("@sqlite.org/sqlite-wasm", "3.53.0-build1"))
 
-            //val sqlDelightVersion = libs.versions.sqlDelight.get()
-            //val sqlJsVersion = libs.versions.sqljs.get()
+            implementation(npm("@cashapp/sqldelight-sqljs-worker", libs.versions.sqlDelight.get()))
+            implementation(npm("sql.js", libs.versions.sqljs.get()))
 
-            //implementation(npm("@cashapp/sqldelight-sqljs-worker", sqlDelightVersion))
-            //implementation(npm("sql.js", sqlJsVersion))
-
+            implementation(devNpm("copy-webpack-plugin", libs.versions.copy.webpack.plugin.get()))
         }
+
         iosMain.dependencies {
 
-           // implementation(libs.sqldelight.native.driver)
+            implementation(libs.sqldelight.native.driver)
         }
         jvmMain.dependencies {
-           // implementation(libs.sqldelight.driver.desktop)
+            implementation(libs.sqldelight.driver.desktop)
 
         }
     }
@@ -104,4 +108,13 @@ kotlin {
 
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
+}
+
+sqldelight {
+    databases {
+        create("EcoTrackDatabase") {
+            packageName = "ru.elkabelaya.ecotracker.db"
+            generateAsync.set(true)
+        }
+    }
 }

@@ -17,10 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import app.cash.sqldelight.db.SqlDriver
 import org.jetbrains.compose.resources.painterResource
 
 import ecotracker.shared.generated.resources.Res
 import ecotracker.shared.generated.resources.compose_multiplatform
+import org.koin.compose.koinInject
+import ru.elkabelaya.ecotracker.db.EcoTrackDatabase
 import ru.elkabelaya.ecotracker.ui.navigation.AppNavHost
 import ru.elkabelaya.ecotracker.ui.theme.Theme
 
@@ -28,6 +31,7 @@ import ru.elkabelaya.ecotracker.ui.theme.Theme
 @Preview
 fun App() {
     val navController = rememberNavController()
+
     Theme {
         AppNavHost(navController = navController)
     }

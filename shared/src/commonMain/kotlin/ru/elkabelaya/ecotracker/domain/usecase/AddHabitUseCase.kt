@@ -20,7 +20,7 @@ class AddHabitUseCase(
         }
 
         val habit = Habit(
-            id = "",
+            id = 0,
             title = title.trim(),
             category = category
         )

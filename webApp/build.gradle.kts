@@ -24,5 +24,6 @@ kotlin {
 
             implementation(libs.compose.ui)
         }
+
     }
 }

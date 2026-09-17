@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import ru.elkabelaya.ecotracker.domain.model.HabitCategory
 import ru.elkabelaya.ecotracker.domain.model.Habits
 import ru.elkabelaya.ecotracker.domain.usecase.AddHabitUseCase
+import ru.elkabelaya.ecotracker.domain.usecase.GetHabitsUseCase
 
 data class HabitUiState(
     val habits: Habits = emptyList(),
@@ -19,6 +20,7 @@ data class HabitUiState(
 
 class HabitViewModel(
     private val addHabitUseCase: AddHabitUseCase,
+    private val getHabitsUseCase: GetHabitsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HabitUiState())
     val uiState: StateFlow<HabitUiState> = _uiState.asStateFlow()
@@ -28,10 +30,19 @@ class HabitViewModel(
     }
 
     private fun loadHabits() {
-        _uiState.value = _uiState.value.copy(
-            isLoading = true,
-            habits = listOf()
-        )
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(
+                isLoading = true,
+                habits = listOf()
+            )
+            getHabitsUseCase().collect { habits ->
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    habits = habits
+                )
+            }
+        }
+
     }
 
     fun addHabit(title: String, category: HabitCategory) {

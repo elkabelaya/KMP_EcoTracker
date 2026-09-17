@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import ru.elkabelaya.ecotracker.domain.model.HabitCategory
 import ru.elkabelaya.ecotracker.domain.model.Habits
 import ru.elkabelaya.ecotracker.ui.components.HabitCard
 import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
@@ -19,7 +20,7 @@ import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
 fun HomeScreen(
     viewModel: HabitViewModel,
     onAddClick: () -> Unit,
-    onHabitClick: (String) -> Unit // ID привычки
+    onHabitClick: (Long) -> Unit // ID привычки
 ) {
     val uiState by viewModel.uiState.collectAsState()
     Scaffold(
@@ -37,7 +38,7 @@ fun HomeScreen(
         // Плавающая кнопка (FAB) - автоматически позиционируется
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onAddClick,
+                onClick = { viewModel.addHabit("test", HabitCategory.TRANSPORT) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
 //                Icon(
