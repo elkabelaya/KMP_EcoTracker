@@ -44,19 +44,4 @@ class HabitViewModel(
         }
 
     }
-
-    fun addHabit(title: String, category: HabitCategory) {
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, error = null)
-            addHabitUseCase(title, category).map {
-                _uiState.value = _uiState.value.copy(isLoading = false)
-            }
-            .recover {
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = it.toString()
-                )
-            }
-        }
-    }
 }

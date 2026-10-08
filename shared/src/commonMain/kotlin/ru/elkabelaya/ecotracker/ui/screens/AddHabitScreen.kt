@@ -18,16 +18,21 @@ import androidx.compose.ui.Modifier
 import ru.elkabelaya.ecotracker.domain.model.Habit
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import ru.elkabelaya.ecotracker.domain.model.HabitCategory
+import ru.elkabelaya.ecotracker.ui.components.EnumDropdownMenu
+import ru.elkabelaya.ecotracker.ui.viewmodels.AddHabitViewModel
 
 @Composable
 fun HabitScreen(
-    habit: Habit?,
-    onAddClick: (Habit?) -> Unit,
+    viewModel: AddHabitViewModel,
     onBack: () -> Unit
 ) {
-    var state = rememberTextFieldState("")
+    val titleState = rememberTextFieldState("")
+    val categoryState = remember{mutableStateOf(HabitCategory.TRANSPORT)}
+
     Scaffold(
-        // Верхняя панель (AppBar)
         topBar = {
             TopAppBar(
                 title = { Text("Новая привычка") },
@@ -48,15 +53,30 @@ fun HabitScreen(
             )
         },
 
-        // Основной контент
         content = { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                TextField(state)
-                Button({onAddClick(null)}, content = { Text("Сохранить") })
+                TextField(titleState)
+                EnumDropdownMenu(
+                    HabitCategory.entries,
+                    categoryState.value,
+                    {
+                        categoryState.value = it
+                    },
+                    {
+                        it.toString()
+                    }
+                )
+                Button({
+                    viewModel.addHabit(titleState.text.toString(), categoryState.value) {
+                        onBack()
+                    }
+                },
+                    content = { Text("Сохранить") }
+                )
             }
         }
     )

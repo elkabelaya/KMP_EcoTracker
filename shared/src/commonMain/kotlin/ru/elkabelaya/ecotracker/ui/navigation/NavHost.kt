@@ -28,10 +28,7 @@ fun AppNavHost(
 
         composable<Screen.AddHabit> {
             HabitScreen(
-                habit = null,
-                onAddClick = {
-                    //
-                },
+                koinViewModel(),
                 onBack = {
                     navController.navigateUp()
                 }

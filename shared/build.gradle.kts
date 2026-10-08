@@ -1,6 +1,10 @@
+import com.squareup.javapoet.FieldSpec
+import org.gradle.declarative.dsl.schema.FqName.Empty.packageName
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import java.io.File
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,6 +13,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
@@ -61,6 +66,7 @@ kotlin {
             implementation(libs.compose.uiTooling)
             implementation(libs.sqldelight.android.driver)
             implementation(libs.sqldelight.async)
+            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -71,6 +77,7 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            //implementation(libs.androidx.foundation)
             implementation(libs.navigation.compose)
             implementation(libs.serialization.json)
             implementation(libs.compose.material.icons.extended)
@@ -80,10 +87,17 @@ kotlin {
             implementation(libs.sqldelight.runtime)
             implementation(libs.sqldelight.coroutines)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.auth)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+
         webMain.dependencies {
             implementation(libs.wrappers.browser)
             implementation(libs.sqldelight.driver.webworker)
@@ -93,21 +107,24 @@ kotlin {
             implementation(npm("sql.js", libs.versions.sqljs.get()))
 
             implementation(devNpm("copy-webpack-plugin", libs.versions.copy.webpack.plugin.get()))
+            
+            implementation(libs.ktor.client.js)
+        }
+
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
 
         iosMain.dependencies {
 
             implementation(libs.sqldelight.native.driver)
         }
+
         jvmMain.dependencies {
             implementation(libs.sqldelight.driver.desktop)
-
+            implementation(libs.ktor.client.cio)
         }
     }
-}
-
-dependencies {
-    androidRuntimeClasspath(libs.compose.uiTooling)
 }
 
 sqldelight {
@@ -116,5 +133,30 @@ sqldelight {
             packageName = "ru.elkabelaya.ecotracker.db"
             generateAsync.set(true)
         }
+    }
+}
+
+fun getEnvProperty(key: String): String {
+    //для CI/CD
+    System.getenv(key)?.let { return it }
+
+    val envFile = rootProject.file(".env")
+    if (envFile.exists()) {
+        val envLines = envFile.readLines()
+        for (line in envLines) {
+            if (line.trim().startsWith("#") || !line.contains("=")) continue
+            val parts = line.split("=", limit = 2)
+            if (parts[0].trim() == key) return parts[1].trim().removeSurrounding("\"", "\"")
+        }
+    }
+
+    return ""
+}
+
+buildkonfig {
+    packageName = "generated.gradle.buildkonfig"
+
+    defaultConfigs {
+        buildConfigField(STRING, "API_URL", getEnvProperty("API_URL"))
     }
 }

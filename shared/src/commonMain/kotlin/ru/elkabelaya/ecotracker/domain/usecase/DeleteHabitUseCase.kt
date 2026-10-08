@@ -8,7 +8,7 @@ class DeleteHabitUseCase(
         private val repository: HabitRepository
     ) {
         suspend operator fun invoke(
-            id: Long
+            id: String
         ) {
 
             repository.delete(id)

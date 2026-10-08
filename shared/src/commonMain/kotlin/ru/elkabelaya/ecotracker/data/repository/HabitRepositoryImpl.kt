@@ -50,7 +50,7 @@ class HabitRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun delete(id: Long): Result<Unit> {
+    override suspend fun delete(id: String): Result<Unit> {
         TODO("Not yet implemented")
     }
 
@@ -61,7 +61,7 @@ class HabitRepositoryImpl(
 
 private fun Habit_table.toHabit(): Habit {
     return Habit(
-        this.id,
+        this.id.toString(),
         this.title,
         HabitCategory.entries[this.category.toInt()],
         this.is_completed == 1L,

@@ -20,7 +20,7 @@ import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
 fun HomeScreen(
     viewModel: HabitViewModel,
     onAddClick: () -> Unit,
-    onHabitClick: (Long) -> Unit // ID привычки
+    onHabitClick: (String) -> Unit // ID привычки
 ) {
     val uiState by viewModel.uiState.collectAsState()
     Scaffold(
@@ -35,10 +35,9 @@ fun HomeScreen(
             )
         },
 
-        // Плавающая кнопка (FAB) - автоматически позиционируется
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { viewModel.addHabit("test", HabitCategory.TRANSPORT) },
+                onClick = onAddClick,
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
 //                Icon(
