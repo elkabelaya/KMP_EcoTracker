@@ -77,7 +77,6 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            //implementation(libs.androidx.foundation)
             implementation(libs.navigation.compose)
             implementation(libs.serialization.json)
             implementation(libs.compose.material.icons.extended)
@@ -92,6 +91,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.auth)
+            implementation(libs.vico)
 
         }
         commonTest.dependencies {
