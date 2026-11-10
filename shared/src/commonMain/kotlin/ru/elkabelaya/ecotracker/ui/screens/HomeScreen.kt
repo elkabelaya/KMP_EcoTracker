@@ -3,7 +3,12 @@ package ru.elkabelaya.ecotracker.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Stars
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,7 +25,8 @@ import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
 fun HomeScreen(
     viewModel: HabitViewModel,
     onAddClick: () -> Unit,
-    onHabitClick: (String) -> Unit // ID привычки
+    onHabitClick: (String) -> Unit,
+    onStatisticsClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     Scaffold(
@@ -31,7 +37,15 @@ fun HomeScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                ),
+                actions = {
+                    IconButton(onClick = onStatisticsClick) {
+                        Icon(
+                            imageVector = Icons.Default.Stars,
+                            contentDescription = "Статистика"
+                        )
+                    }
+                }
             )
         },
 

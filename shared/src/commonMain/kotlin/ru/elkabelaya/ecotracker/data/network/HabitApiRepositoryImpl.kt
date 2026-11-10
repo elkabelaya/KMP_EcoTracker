@@ -34,7 +34,6 @@ class HabitApiRepositoryImpl(
 
     override suspend fun deleteHabit(id: String): Result<Unit> = safeApiCall {
         client.delete("habits/$id")
-        Unit
     }
 
     private inline fun <T> safeApiCall(block: () -> T): Result<T> {
