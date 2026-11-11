@@ -1,10 +1,6 @@
-import com.squareup.javapoet.FieldSpec
-import org.gradle.declarative.dsl.schema.FqName.Empty.packageName
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.File
-import java.util.Properties
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)

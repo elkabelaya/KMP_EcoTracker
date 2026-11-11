@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -41,16 +40,16 @@ fun AppNavHost(
         }
     ) {
         composable<Screen.Home> {
-            HomeScreen(koinViewModel(),
+            HomeScreen(
+                koinViewModel(),
                 {
-                navController.navigate(Screen.AddHabit)
-            },
+                    navController.navigate(Screen.AddHabit)
+                },
                 {},
                 {
                     navController.navigate(Screen.Statistics)
                 }
             )
-
         }
 
         composable<Screen.AddHabit> {

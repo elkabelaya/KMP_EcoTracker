@@ -1,0 +1,5 @@
+<resources>
+    <string name="add_habit_title">Новая привычка</string>
+    <string name="add_habit_save">Сохранить</string>
+
+</resources>

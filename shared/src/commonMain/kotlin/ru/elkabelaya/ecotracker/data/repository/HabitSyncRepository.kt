@@ -8,6 +8,7 @@ import ru.elkabelaya.ecotracker.domain.model.HabitCategory
 import ru.elkabelaya.ecotracker.domain.model.Habits
 import ru.elkabelaya.ecotracker.domain.repository.HabitRepository
 
+@Suppress("TooGenericExceptionCaught")
 class HabitSyncRepository(
     private val localRepo: HabitRepository,
     private val apiRepo: HabitApiRepository
@@ -26,7 +27,6 @@ class HabitSyncRepository(
 
         val dto = habit.toDto()
         apiRepo.createHabit(dto).onFailure {
-        
         }
 
         return localResult.map { }

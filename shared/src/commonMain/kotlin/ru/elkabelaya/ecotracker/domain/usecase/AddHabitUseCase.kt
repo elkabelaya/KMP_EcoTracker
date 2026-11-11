@@ -11,20 +11,29 @@ class AddHabitUseCase(
         title: String,
         category: HabitCategory
     ): Result<Habit> {
+        var error: String? = null
         if (title.isBlank()) {
-            return Result.failure(Exception("Название не может быть пустым"))
+            error = "Название не может быть пустым"
         }
 
-        if (title.length > 100) {
-            return Result.failure(Exception("Название слишком длинное"))
+        if (title.length > MAX_LENGTH) {
+            error = "Название слишком длинное"
         }
 
-        val habit = Habit(
-            id = "",
-            title = title.trim(),
-            category = category
-        )
+        if (error.isNullOrEmpty()) {
+            val habit = Habit(
+                id = "",
+                title = title.trim(),
+                category = category
+            )
 
-        return repository.add(habit).map { habit }
+            return repository.add(habit).map { habit }
+        } else {
+            return Result.failure(Exception(error))
+        }
+    }
+
+    private companion object {
+        const val MAX_LENGTH = 100
     }
 }

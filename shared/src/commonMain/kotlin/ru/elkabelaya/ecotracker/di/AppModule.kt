@@ -2,13 +2,11 @@ package ru.elkabelaya.ecotracker.di
 
 import app.cash.sqldelight.db.SqlDriver
 import generated.gradle.buildkonfig.BuildKonfig
-import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
-import ru.elkabelaya.ecotracker.data.network.HabitApiRepository
 import ru.elkabelaya.ecotracker.data.network.HabitApiRepositoryImpl
 import ru.elkabelaya.ecotracker.data.network.TokenStorage
 import ru.elkabelaya.ecotracker.data.network.TokenStorageImpl
@@ -24,7 +22,7 @@ import ru.elkabelaya.ecotracker.domain.usecase.GetHabitsUseCase
 import ru.elkabelaya.ecotracker.ui.viewmodels.AddHabitViewModel
 import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
 
-fun databaseModule(sqlDriver: SqlDriver)= module {
+fun databaseModule(sqlDriver: SqlDriver) = module {
     single<SqlDriver> { sqlDriver }
 }
 
@@ -36,7 +34,7 @@ val networkModule = module {
             BuildKonfig.API_URL,
             get(),
             {
-                //TODO
+                // TODO
             }
         )
     }
@@ -59,7 +57,7 @@ val commonModule = module {
     factory { GetHabitsUseCase(get()) }
 
     // ViewModels
-    viewModel { HabitViewModel(get(), get()) }
+    viewModel { HabitViewModel(get()) }
     viewModel { AddHabitViewModel(get()) }
 }
 

@@ -2,14 +2,11 @@ package ru.elkabelaya.ecotracker.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.elkabelaya.ecotracker.domain.model.HabitCategory
 import ru.elkabelaya.ecotracker.domain.model.Habits
-import ru.elkabelaya.ecotracker.domain.usecase.AddHabitUseCase
 import ru.elkabelaya.ecotracker.domain.usecase.GetHabitsUseCase
 
 data class HabitUiState(
@@ -19,7 +16,6 @@ data class HabitUiState(
 )
 
 class HabitViewModel(
-    private val addHabitUseCase: AddHabitUseCase,
     private val getHabitsUseCase: GetHabitsUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HabitUiState())
@@ -42,6 +38,5 @@ class HabitViewModel(
                 )
             }
         }
-
     }
 }

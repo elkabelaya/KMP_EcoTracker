@@ -6,21 +6,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import ecotracker.shared.generated.resources.Res
+import ecotracker.shared.generated.resources.statistics_month
+import ecotracker.shared.generated.resources.statistics_title
+import ecotracker.shared.generated.resources.statistics_weak
 import ru.elkabelaya.ecotracker.ui.components.ActivityChart
+import ru.elkabelaya.ecotracker.ui.components.BackButton
+import ru.elkabelaya.ecotracker.ui.extensions.Text
+import ru.elkabelaya.ecotracker.ui.theme.Dimens
 
+@Suppress("MagicNumber")
 @Composable
 fun StatisticsScreen(
     weeklyData: List<Float> = listOf(5f, 8f, 12f, 7f, 15f, 10f, 18f),
@@ -30,20 +31,13 @@ fun StatisticsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Статистика") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Назад"
-                        )
-                    }
-
-                }
+                title = {
+                    Text(
+                        Res.string.statistics_title,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                        },
+                navigationIcon = { BackButton(onBack = onBack) }
             )
         },
 
@@ -54,7 +48,7 @@ fun StatisticsScreen(
                     .padding(paddingValues)
             ) {
                 Text(
-                    text = "Активность за неделю",
+                    Res.string.statistics_weak,
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -62,16 +56,16 @@ fun StatisticsScreen(
                     dataPoints = weeklyData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = Dimens.Paddings.m)
                 )
 
                 Spacer(
-                    modifier = Modifier.height(32.dp)
+                    modifier = Modifier.height(Dimens.Size.l)
                 )
 
                 // График за месяц
                 Text(
-                    text = "Активность за месяц",
+                    Res.string.statistics_month,
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -79,7 +73,7 @@ fun StatisticsScreen(
                     dataPoints = monthlyData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = Dimens.Paddings.m)
                 )
             }
         }

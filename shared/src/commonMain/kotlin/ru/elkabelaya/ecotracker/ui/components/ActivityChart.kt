@@ -26,7 +26,8 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberLineComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
-
+import ru.elkabelaya.ecotracker.ui.theme.Dimens
+@Suppress("MagicNumber")
 @Composable
 fun ActivityChart(
     dataPoints: List<Float>, // Значения активности за N дней
@@ -56,7 +57,7 @@ fun ActivityChart(
                     LineCartesianLayer.rememberLine(
                         // Настройка цвета и заливки линии
                         fill = LineCartesianLayer.LineFill.single(Fill(lineColor)),
-                        stroke = LineCartesianLayer.LineStroke.Continuous(thickness = 3.dp),
+                        stroke = LineCartesianLayer.LineStroke.Continuous(thickness = Dimens.Thickness.l),
                         // Настройка точек (PointProvider)
                         pointProvider = if (showPoints) {
                             single(
@@ -68,19 +69,24 @@ fun ActivityChart(
                                     size = 6.dp
                                 )
                             )
-                        } else null
+                        } else {
+                            null
+                        }
                     )
                 )
             ),
             // Левая (вертикальная) ось координат
             startAxis = VerticalAxis.rememberStart(
-                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = 2.dp),
+                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.m),
                 tick = null,
-                guideline = rememberLineComponent(fill = Fill(Color.LightGray.copy(alpha = 0.3f)), thickness = 1.dp)
+                guideline = rememberLineComponent(
+                    fill = Fill(Color.LightGray.copy(alpha = 0.3f)),
+                    thickness = Dimens.Thickness.s
+                )
             ),
             // Нижняя (горизонтальная) ось координат
             bottomAxis = HorizontalAxis.rememberBottom(
-                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = 2.dp),
+                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.m),
                 tick = null,
                 guideline = null
             )
@@ -91,6 +97,7 @@ fun ActivityChart(
             .height(200.dp)
     )
 }
+
 @Preview
 @Composable
 private fun ActivityChartPreview() {

@@ -9,9 +9,7 @@ import org.koin.dsl.module
 import ru.elkabelaya.ecotracker.data.db.Database
 import ru.elkabelaya.ecotracker.db.EcoTrackDatabase
 
-
 actual val platformModule: Module = module {
-
 }
 
 fun createDriver(context: Context): SqlDriver {

@@ -1,0 +1,4 @@
+<resources>
+    <string name="components_back_button_accessability">Назад</string>
+    <string name="components_enum_drop_down_menu_select_default">Выберите значение</string>
+</resources>

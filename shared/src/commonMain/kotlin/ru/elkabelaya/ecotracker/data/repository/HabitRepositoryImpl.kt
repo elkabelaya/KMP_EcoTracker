@@ -13,11 +13,11 @@ import ru.elkabelaya.ecotracker.domain.model.HabitCategory
 import ru.elkabelaya.ecotracker.domain.model.Habits
 import ru.elkabelaya.ecotracker.domain.repository.HabitRepository
 
-
+@Suppress("TooGenericExceptionCaught")
 class HabitRepositoryImpl(
     private val database: EcoTrackDatabase,
     private val timeProvider: TimeProvider
-): HabitRepository {
+) : HabitRepository {
     override fun getHabits(): Flow<Habits> = flow {
         database.habitQueries.selectAllHabits()
             .asFlow()
@@ -26,7 +26,6 @@ class HabitRepositoryImpl(
                 emit(list.map { it.toHabit() })
             }
     }
-
 
     override suspend fun add(habit: Habit): Result<Unit> {
         try {

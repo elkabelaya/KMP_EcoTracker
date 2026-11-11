@@ -1,6 +1,6 @@
 package ru.elkabelaya.ecotracker
 
-class WasmPlatform: Platform {
+private class WasmPlatform : Platform {
     override val name: String = "Web with Kotlin/Wasm"
 }
 

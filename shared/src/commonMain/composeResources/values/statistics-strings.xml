@@ -1,0 +1,5 @@
+<resources>
+    <string name="statistics_title">Статистика</string>
+    <string name="statistics_weak">Активность за неделю</string>
+    <string name="statistics_month">Активность за месяц</string>
+</resources>
