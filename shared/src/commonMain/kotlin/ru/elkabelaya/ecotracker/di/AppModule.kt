@@ -1,5 +1,6 @@
 package ru.elkabelaya.ecotracker.di
 
+import RequestPermissionUseCase
 import app.cash.sqldelight.db.SqlDriver
 import generated.gradle.buildkonfig.BuildKonfig
 import org.koin.core.context.startKoin
@@ -15,11 +16,13 @@ import ru.elkabelaya.ecotracker.data.providers.TimeProvider
 import ru.elkabelaya.ecotracker.data.providers.TimeProviderImpl
 import ru.elkabelaya.ecotracker.data.repository.HabitRepositoryImpl
 import ru.elkabelaya.ecotracker.data.repository.HabitSyncRepository
+import ru.elkabelaya.ecotracker.data.repository.getNotificationRepository
 import ru.elkabelaya.ecotracker.db.EcoTrackDatabase
 import ru.elkabelaya.ecotracker.domain.repository.HabitRepository
 import ru.elkabelaya.ecotracker.domain.usecase.AddHabitUseCase
 import ru.elkabelaya.ecotracker.domain.usecase.GetHabitsUseCase
 import ru.elkabelaya.ecotracker.ui.viewmodels.AddHabitViewModel
+import ru.elkabelaya.ecotracker.ui.viewmodels.AppViewModel
 import ru.elkabelaya.ecotracker.ui.viewmodels.HabitViewModel
 
 fun databaseModule(sqlDriver: SqlDriver) = module {
@@ -46,17 +49,26 @@ val commonModule = module {
         TimeProviderImpl()
     }
 
+    single {
+        getNotificationRepository()
+    }
+
     single<HabitRepository> {
         HabitSyncRepository(
             HabitRepositoryImpl(get(), get()),
             HabitApiRepositoryImpl(get())
         )
     }
+    single<RequestPermissionUseCase> {
+        RequestPermissionUseCase(get())
+    }
     // UseCases
     factory { AddHabitUseCase(get()) }
     factory { GetHabitsUseCase(get()) }
+    factory { RequestPermissionUseCase(get()) }
 
     // ViewModels
+    viewModel { AppViewModel(get()) }
     viewModel { HabitViewModel(get()) }
     viewModel { AddHabitViewModel(get()) }
 }

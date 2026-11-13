@@ -63,7 +63,12 @@ fun <T : Enum<T>> EnumDropdownMenu(
         ) {
             allItems.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text(text = itemToText(item)) },
+                    text = {
+                        Text(
+                            text = itemToText(item),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    },
                     onClick = {
                         onItemSelected(item)
                         expanded = false
