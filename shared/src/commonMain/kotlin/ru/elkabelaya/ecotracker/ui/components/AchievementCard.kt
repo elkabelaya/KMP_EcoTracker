@@ -30,9 +30,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import ru.elkabelaya.ecotracker.domain.model.Achievement
+import ru.elkabelaya.ecotracker.ui.extensions.AppPreview
 import ru.elkabelaya.ecotracker.ui.theme.Dimens
+import ru.elkabelaya.ecotracker.ui.theme.EcoTrackTheme
 
 @Suppress("MagicNumber")
 @Composable
@@ -57,7 +58,7 @@ fun AchievementCard(
             }),
         colors = CardDefaults.cardColors(
             containerColor = if (achievement.isUnlocked) {
-                Color(0xFFE8F5E9)
+                MaterialTheme.colorScheme.primaryContainer
             } else {
                 MaterialTheme.colorScheme.surfaceVariant
             }
@@ -78,7 +79,7 @@ fun AchievementCard(
                     imageVector = Icons.Default.Event,
                     contentDescription = null,
                     tint = if (achievement.isUnlocked) {
-                        Color(0xFF4CAF50)
+                        MaterialTheme.colorScheme.primary
                     } else {
                         Color.Gray
                     },
@@ -112,7 +113,7 @@ fun AchievementCard(
                     LinearProgressIndicator(
                         progress = { achievement.progress },
                         modifier = Modifier.fillMaxWidth(),
-                        color = Color(0xFF4CAF50),
+                        color = MaterialTheme.colorScheme.primary,
                         trackColor = Color.Gray.copy(alpha = 0.3f),
                         strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
                     )
@@ -122,10 +123,10 @@ fun AchievementCard(
     }
 }
 
-@Preview
+@AppPreview
 @Composable
 private fun AchievementCardPreview() {
-    MaterialTheme {
+    EcoTrackTheme {
         AchievementCard(Achievement("1", "title", "description", false))
     }
 }

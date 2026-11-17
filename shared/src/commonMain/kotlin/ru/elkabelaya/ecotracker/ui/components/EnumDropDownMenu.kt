@@ -15,13 +15,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import ecotracker.shared.generated.resources.Res
 import ecotracker.shared.generated.resources.components_enum_drop_down_menu_select_default
 import org.jetbrains.compose.resources.StringResource
 import ru.elkabelaya.ecotracker.domain.model.HabitCategory
+import ru.elkabelaya.ecotracker.ui.extensions.AppPreview
 import ru.elkabelaya.ecotracker.ui.extensions.Text
 import ru.elkabelaya.ecotracker.ui.theme.Dimens
+import ru.elkabelaya.ecotracker.ui.theme.EcoTrackTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,10 +81,10 @@ fun <T : Enum<T>> EnumDropdownMenu(
     }
 }
 
-@Preview
+@AppPreview
 @Composable
 private fun EnumDropdownMenuPreview() {
-    MaterialTheme {
+    EcoTrackTheme {
         EnumDropdownMenu(
             HabitCategory.entries,
             HabitCategory.TRANSPORT,

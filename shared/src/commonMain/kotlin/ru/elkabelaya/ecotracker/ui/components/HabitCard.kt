@@ -15,7 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import ru.elkabelaya.ecotracker.domain.model.Habit
+import ru.elkabelaya.ecotracker.ui.extensions.AppPreview
+import ru.elkabelaya.ecotracker.ui.preview.Habit
+import ru.elkabelaya.ecotracker.ui.preview.Preview
 import ru.elkabelaya.ecotracker.ui.theme.Dimens
+import ru.elkabelaya.ecotracker.ui.theme.EcoTrackTheme
 
 @Composable
 fun HabitCard(
@@ -26,7 +30,7 @@ fun HabitCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = Dimens.Paddings.m, vertical = Dimens.Paddings.s),
-        elevation = CardDefaults.cardElevation(defaultElevation = Dimens.Evaluation.m),
+        elevation = CardDefaults.cardElevation(defaultElevation = Dimens.Elevation.medium),
         onClick = onClick
     ) {
         Row(
@@ -63,5 +67,13 @@ fun HabitCard(
                 color = Color.Gray
             )
         }
+    }
+}
+
+@AppPreview
+@Composable
+private fun HabitCardPreview() {
+    EcoTrackTheme {
+        HabitCard(Preview.Habit, {})
     }
 }

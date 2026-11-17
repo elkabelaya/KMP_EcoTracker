@@ -9,7 +9,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
@@ -26,14 +25,16 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberLineComponent
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
+import ru.elkabelaya.ecotracker.ui.extensions.AppPreview
 import ru.elkabelaya.ecotracker.ui.theme.Dimens
+import ru.elkabelaya.ecotracker.ui.theme.EcoTrackTheme
 @Suppress("MagicNumber")
 @Composable
 fun ActivityChart(
     dataPoints: List<Float>, // Значения активности за N дней
     modifier: Modifier = Modifier,
-    lineColor: Color = Color(0xFF4CAF50),
-    pointColor: Color = Color(0xFF81C784),
+    lineColor: Color = MaterialTheme.colorScheme.primary,
+    pointColor: Color = MaterialTheme.colorScheme.secondary,
     showPoints: Boolean = true
 ) {
     if (dataPoints.isEmpty()) return
@@ -57,7 +58,7 @@ fun ActivityChart(
                     LineCartesianLayer.rememberLine(
                         // Настройка цвета и заливки линии
                         fill = LineCartesianLayer.LineFill.single(Fill(lineColor)),
-                        stroke = LineCartesianLayer.LineStroke.Continuous(thickness = Dimens.Thickness.l),
+                        stroke = LineCartesianLayer.LineStroke.Continuous(thickness = Dimens.Thickness.large),
                         // Настройка точек (PointProvider)
                         pointProvider = if (showPoints) {
                             single(
@@ -77,16 +78,16 @@ fun ActivityChart(
             ),
             // Левая (вертикальная) ось координат
             startAxis = VerticalAxis.rememberStart(
-                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.m),
+                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.medium),
                 tick = null,
                 guideline = rememberLineComponent(
                     fill = Fill(Color.LightGray.copy(alpha = 0.3f)),
-                    thickness = Dimens.Thickness.s
+                    thickness = Dimens.Thickness.small
                 )
             ),
             // Нижняя (горизонтальная) ось координат
             bottomAxis = HorizontalAxis.rememberBottom(
-                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.m),
+                line = rememberLineComponent(fill = Fill(Color.Gray), thickness = Dimens.Thickness.medium),
                 tick = null,
                 guideline = null
             )
@@ -98,10 +99,10 @@ fun ActivityChart(
     )
 }
 
-@Preview
+@AppPreview
 @Composable
 private fun ActivityChartPreview() {
-    MaterialTheme {
+    EcoTrackTheme {
         ActivityChart(listOf(1f, 2f, 5f, 3f))
     }
 }
